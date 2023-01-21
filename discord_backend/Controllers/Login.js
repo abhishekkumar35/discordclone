@@ -8,6 +8,7 @@ module.exports = login = async (req, res) => {
     const user = await User.findOne({ mail: mail.toLowerCase() });
 
     if (user && bcrypt.compare(user.password, password)) {
+      // create a new jwt token
       const token = jwt.sign(
         { userId: user._id, mail },
         process.env.PRIVATE_KEY,
